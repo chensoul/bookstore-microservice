@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content">
+    <div th:x-data="|initData('${pageNo}')|">
+        <div class="row row-cols-1 row-cols-md-5">
+            <template x-for="user in users.data">
+                <div class="col mb-3">
+                    <div class="card h-90 user">
+
+                        <img :src="user.imageUrl"
+                             class="card-img-top"
+                             height="240" width="180"
+                        />
+
+                        <div class="card-body">
+                            <h6 class="card-title"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                x-text="user.name">user.name</h6>
+                            <p class="card-text"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               x-text="'Price: $'+user.price"
+                            >user.price</p>
+                        </div>
+                        <div class="card-footer" style="background: transparent; border-top: 0;">
+                            <div class="d-grid gap-1">
+                                <button class="btn btn-primary" @click="addToCart(user)">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div th:replace="~{fragments/pagination :: pagination}"></div>
+    </div>
+</div>
+<div layout:fragment="pageScripts">
+    <script src="/js/users.js"></script>
+</div>
+</body>
+</html>

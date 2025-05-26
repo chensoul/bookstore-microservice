@@ -1,0 +1,67 @@
+name: Maven Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - api-gateway/**
+      - bookstore-webapp/**
+      - user-service/**
+      - product-service/**
+      - order-service/**
+      - notification-service/**
+      - config-server/**
+  pull_request:
+    branches:
+      - 'main'
+    paths:
+      - api-gateway/**
+      - bookstore-webapp/**
+      - user-service/**
+      - product-service/**
+      - order-service/**
+      - notification-service/**
+      - config-server/**
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Make Maven wrapper executable
+        run: chmod +x mvnw
+
+      - name: Build with Maven
+        run: ./mvnw -ntp verify
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and Publish Docker Image
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          ./mvnw spring-boot:build-image -DskipTests
+          echo "Pushing the images to Docker Hub..."
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-user-service
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-product-service
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-order-service
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-notification-service
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-config-server
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-api-gateway
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-webapp
+
