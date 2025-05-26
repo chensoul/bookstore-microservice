@@ -8,7 +8,7 @@
     <artifactId>bookstore-microservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>spring-boot-microservices-course</name>
+    <name>bookstore-microservice</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
