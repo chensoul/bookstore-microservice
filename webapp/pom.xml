@@ -11,10 +11,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.chensoul.bookstore</groupId>
-    <artifactId>bookstore-webapp</artifactId>
+    <artifactId>webapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>bookstore-webapp</name>
-    <description>bookstore-webapp</description>
+    <name>webapp</name>
+    <description>webapp</description>
 
     <properties>
         <java.version>21</java.version>

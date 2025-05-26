@@ -24,7 +24,7 @@
         <module>notification-service</module>
         <module>api-gateway</module>
         <module>config-server</module>
-        <module>bookstore-webapp</module>
+        <module>webapp</module>
     </modules>
 
     <build>

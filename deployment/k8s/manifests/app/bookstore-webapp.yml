@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bookstore-webapp
+  name: webapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bookstore-webapp
+      app: webapp
   template:
     metadata:
       labels:
-        app: bookstore-webapp
+        app: webapp
     spec:
       containers:
-        - name: bookstore-webapp
+        - name: webapp
           image: chensoul/bookstore-webapp
           imagePullPolicy: Always
           env:
@@ -26,10 +26,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: bookstore-webapp
+  name: webapp
 spec:
   selector:
-    app: bookstore-webapp
+    app: webapp
   ports:
     - protocol: TCP
       port: 8080

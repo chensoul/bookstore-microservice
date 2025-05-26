@@ -7,7 +7,7 @@ on:
       - 'main'
     paths:
       - api-gateway/**
-      - bookstore-webapp/**
+      - webapp/**
       - user-service/**
       - product-service/**
       - order-service/**
@@ -18,7 +18,7 @@ on:
       - 'main'
     paths:
       - api-gateway/**
-      - bookstore-webapp/**
+      - webapp/**
       - user-service/**
       - product-service/**
       - order-service/**
