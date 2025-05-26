@@ -23,14 +23,11 @@ $ sdk env install
 # brew install go-task/tap/go-task
 $ task test build
 
-# Run tests
-$ ./mvnw verify
+# Run application by docker
+$ task start
 
-# Format code
-$ ./mvnw spotless:apply
-
-# Run application
-# Run/Debug ApiGatewayApplication.java from your IDE.
+# Run application by ide
+# Run/Debug XxxApplication.java from your IDE.
 ```
 
 ## References

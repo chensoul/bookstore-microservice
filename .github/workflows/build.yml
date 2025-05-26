@@ -2,23 +2,32 @@ name: API Gateway
 
 on:
   push:
-    paths:
-      - api-gateway/**
     branches:
       - 'main'
+    paths:
+      - api-gateway/**
+      - bookstore-webapp/**
+      - user-service/**
+      - product-service/**
+      - order-service/**
+      - notification-service/**
+      - config-server/**
   pull_request:
-    branches: [main]
+    branches:
+      - 'main'
+    paths:
+      - api-gateway/**
+      - bookstore-webapp/**
+      - user-service/**
+      - product-service/**
+      - order-service/**
+      - notification-service/**
+      - config-server/**
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./api-gateway
-      DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/bookstore-api-gateway
-    defaults:
-      run:
-        working-directory: ${{ env.working-directory }}
     steps:
       - uses: actions/checkout@v4
 
@@ -45,6 +54,12 @@ jobs:
       - name: Build and Publish Docker Image
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
-          ./mvnw spring-boot:build-image -DskipTests
+          ./mvnw -pl user-service spring-boot:build-image -DskipTests
+          ./mvnw -pl product-service spring-boot:build-image -DskipTests
+          ./mvnw -pl order-service spring-boot:build-image -DskipTests
+          ./mvnw -pl notification-service spring-boot:build-image -DskipTests
+          ./mvnw -pl config-server spring-boot:build-image -DskipTests
+          ./mvnw -pl api-gateway spring-boot:build-image -DskipTests
+          ./mvnw -pl bookstore-webapp spring-boot:build-image -DskipTests
           echo "Pushing the image $DOCKER_IMAGE_NAME to Docker Hub..."
           docker push --all-tags $DOCKER_IMAGE_NAME
