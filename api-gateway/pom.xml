@@ -21,7 +21,7 @@
         <spring-cloud.version>2024.0.1</spring-cloud.version>
         <springdoc-openapi.version>2.8.8</springdoc-openapi.version>
         <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
-        <dockerImageName>${env.USER}/${project.artifactId}</dockerImageName>
+        <dockerImageName>chensoul/${project.artifactId}</dockerImageName>
     </properties>
 
     <dependencies>
