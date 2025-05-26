@@ -85,6 +85,9 @@
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
                 <artifactId>git-commit-id-maven-plugin</artifactId>
+                <configuration>
+                    <verbose>false</verbose>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
