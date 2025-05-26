@@ -76,6 +76,28 @@ services:
     labels:
       logging: "promtail"
 
+  user-service:
+    image: chensoul/bookstore-user-service
+    container_name: user-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - MANAGEMENT.TRACING.ENABLED=true
+      - MANAGEMENT.ZIPKIN.TRACING.ENDPOINT=http://tempo:9411/api/v2/spans
+      - SPRING.DATASOURCE.URL=jdbc:postgresql://user-db:5432/postgres
+      - SWAGGER.API-GATEWAY-URL=http://api-gateway:8989/user
+    ports:
+      - "8084:8084"
+    restart: unless-stopped
+    depends_on:
+      product-db:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    labels:
+      logging: "promtail"
+
   config-server:
     image: chensoul/bookstore-config-server
     container_name: ft-config-server

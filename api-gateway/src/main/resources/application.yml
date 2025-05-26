@@ -42,7 +42,7 @@ spring:
 
   config:
     import: optional:configserver:http://localhost:8888
-    
+
 springdoc:
   swagger-ui:
     use-root-path: true
@@ -82,4 +82,3 @@ management.metrics.distribution.percentiles-histogram.http.server.requests: true
 management.observations.key-values.application: ${spring.application.name}
 management.tracing.enabled: false
 management.tracing.sampling.probability: 1.0
-management.zipkin.tracing.endpoint: http://localhost:9411/api/v2/spans
