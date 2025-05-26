@@ -62,5 +62,12 @@ jobs:
           ./mvnw -pl config-server spring-boot:build-image -DskipTests
           ./mvnw -pl api-gateway spring-boot:build-image -DskipTests
           ./mvnw -pl bookstore-webapp spring-boot:build-image -DskipTests
-          echo "Pushing the image $DOCKER_IMAGE_NAME to Docker Hub..."
-          docker push --all-tags $DOCKER_IMAGE_NAME
+          echo "Pushing the images to Docker Hub..."
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-user-service
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-product-service
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-order-service
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-notification-service
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-config-server
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-api-gateway
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/bookstore-webapp
+
